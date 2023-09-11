@@ -36,7 +36,7 @@ public class Efst {
 
 	public byte[] bytes;
 	
-	Arc root = new Arc((byte)0);
+	Arc root = new Arc(new byte[(byte)0]);
 	int addCount = 0;
 	
 	Arc lastFinalArc = null;//最后结束的Arc

@@ -68,6 +68,7 @@ public class EfstTest1 {
 		System.out.println("fst.error:" + error);
 		System.out.println("fst.success:" + success);
 
+		System.out.println("****************华丽的分割线*************");
 	}
 }
 //ByteArrayDataInput

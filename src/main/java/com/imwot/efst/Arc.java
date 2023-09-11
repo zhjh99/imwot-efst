@@ -41,19 +41,19 @@ public class Arc {
 	// Target next：4 当前 arc 的下一个 arc 是当前节点最后一个 arc 的向 前的一个arc（数组位置，向前邻接的那个 arc）。
 	// Stop node：8 终止状态 E。 Has output: 16 当前 arc 有 output值（表示 output 不为 0）
 	int node;
-	byte key;
+	byte[] key;
 	Vlong vlong;
 	Arc parentArc;
 	Arc[] nextArc;
 	private int arcActualLength;
 
-	public Arc(byte key) {
+	public Arc(byte[] key) {
 		this.key = key;
 		this.arcActualLength = 0;
 		this.nextArc = new Arc[8];
 	}
 
-	public Arc add(byte oneByte) {
+	public Arc add(byte[] oneByte) {
 		if (arcActualLength == nextArc.length) {
 			int newLength = arcActualLength + 8;
 			nextArc = Arrays.copyOf(nextArc, newLength);
@@ -70,11 +70,41 @@ public class Arc {
 		return find;
 	}
 
-	public Arc find(byte key) {
+	public Arc add(byte oByte) {
+		byte[] oneByte = new byte[] { oByte };
+		if (arcActualLength == nextArc.length) {
+			int newLength = arcActualLength + 8;
+			nextArc = Arrays.copyOf(nextArc, newLength);
+		}
+		Arc find = find(oneByte);
+
+		if (find == null) {
+			Arc arc = new Arc(oneByte);
+			find = arc;
+			nextArc[arcActualLength] = arc;
+			arcActualLength++;
+			arc.parentArc = this;
+		}
+		return find;
+	}
+
+	public Arc find(byte[] key) {
 		Arc find = null;
 		for (int x = 0; x < nextArc.length; x++) {
 			Arc next = nextArc[x];
-			if (null != next && next.key == key) {
+			if (null != next && Arrays.equals(next.key, key)) {
+				find = next;
+			}
+		}
+		return find;
+	}
+
+	public Arc find(byte key) {
+		byte[] keys = new byte[] { key };
+		Arc find = null;
+		for (int x = 0; x < nextArc.length; x++) {
+			Arc next = nextArc[x];
+			if (null != next && Arrays.equals(next.key, keys)) {
 				find = next;
 			}
 		}

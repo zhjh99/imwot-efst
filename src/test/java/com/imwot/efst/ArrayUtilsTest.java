@@ -47,7 +47,7 @@ public class ArrayUtilsTest {
 	 */
 
 	public static void main(String[] args) throws UnsupportedEncodingException {
-		byte[] first = "ab".getBytes("UTF-8");
+		byte[] first = "周".getBytes("UTF-8");
 		byte[] a1= Arrays.copyOf(first, first.length);
 		byte[] a2= Arrays.copyOf(first, first.length*2);
 		System.out.println(a1.length);
